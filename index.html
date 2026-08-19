@@ -1002,9 +1002,6 @@
                     <div class="testimonial-card">
                         <img src="./img/screenshot_4.png" alt="Отзыв 4">
                     </div>
-                    <div class="testimonial-card">
-                        <img src="https://placehold.co/400x650/EBE3DB/333333?text=Screenshot+5" alt="Отзыв 5">
-                    </div>
                 </div>
                 <button class="slider-btn next-btn" id="nextBtn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -1209,12 +1206,49 @@
             setSliderPosition(false);
         }
 
-        // --- Prevent form submission default (for demo) ---
-        document.querySelector('.footer-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время.');
-            this.reset();
-        });
+        // --- Обработка формы записи ---
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = bookingForm.querySelector('button[type="submit"]');
+                const originalText = btn.textContent;
+                
+                // Меняем текст кнопки, чтобы показать процесс отправки
+                btn.textContent = 'Отправка...';
+                btn.disabled = true;
+
+                // Собираем данные из формы
+                const formData = new FormData(bookingForm);
+                const data = Object.fromEntries(formData);
+
+                // Отправляем данные через сервис FormSubmit.co
+                fetch('https://formsubmit.co/ajax/svetlaya.pro.tebya@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...data,
+                        _subject: "Новая заявка с сайта Светланы"
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время.');
+                    bookingForm.reset(); // Очищаем форму
+                })
+                .catch(error => {
+                    alert('Упс! Что-то пошло не так. Попробуйте обновить страницу или написать на почту напрямую.');
+                })
+                .finally(() => {
+                    // Возвращаем кнопку в исходное состояние
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                });
+            });
+        }
     </script>
 </body>
 </html>
