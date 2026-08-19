@@ -428,7 +428,7 @@
             padding: 12px;
         }
 
-                /* --- Testimonials --- */
+        /* --- Testimonials --- */
         .testimonials {
             background-color: var(--accent-light);
             text-align: center;
@@ -440,31 +440,31 @@
             position: relative;
             max-width: 1200px;
             margin: 0 auto;
-            overflow: hidden; /* Прячем все, что выходит за рамки */
+            overflow: hidden; 
             padding: 20px 0 40px;
         }
 
         .testimonials-track {
             display: flex;
             gap: 20px;
-            align-items: flex-start; /* Выравнивание по верху, т.к. высота картинок разная */
+            align-items: flex-start; 
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
         }
 
         .testimonial-card {
-            flex: 0 0 calc(25% - 15px); /* 4 элемента в ряду */
+            flex: 0 0 calc(25% - 15px); 
             border-radius: 12px;
             overflow: hidden;
             background: #fff;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(168, 148, 120, 0.15);
-            height: auto; /* Высота подстраивается под картинку */
+            height: auto; 
         }
 
         .testimonial-card img {
             width: 100%;
-            height: auto; /* Картинка показывается полностью */
+            height: auto; 
             display: block;
         }
 
@@ -739,7 +739,7 @@
                 grid-template-columns: 1fr 1fr;
             }
             .testimonial-card {
-                flex: 0 0 calc(50% - 10px); /* 2 items per row */
+                flex: 0 0 calc(50% - 10px); 
             }
         }
 
@@ -783,13 +783,13 @@
                 gap: 15px;
             }
             .cta-section {
-                background-attachment: scroll; /* Parallax fix for mobile */
+                background-attachment: scroll; 
             }
             .testimonials-slider-wrapper {
                 padding: 0 10px;
             }
             .testimonial-card {
-                flex: 0 0 85%; /* 1 item per row with peek effect */
+                flex: 0 0 85%; 
             }
             .slider-btn {
                 width: 50px;
@@ -1049,8 +1049,8 @@
                 <div class="footer-col">
                     <h4>Запись на сессию</h4>
                     <p>Оставьте контакты, и я свяжусь с вами для бережной консультации.</p>
-                    <form class="footer-form">
-                        <input type="text" placeholder="Ваше имя / Телефон">
+                    <form class="footer-form" id="bookingForm">
+                        <input type="text" name="Имя_или_Телефон" placeholder="Ваше имя / Телефон" required>
                         <button type="submit">Отправить</button>
                     </form>
                 </div>
