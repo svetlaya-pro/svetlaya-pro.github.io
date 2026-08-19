@@ -937,7 +937,7 @@
                         <li>Определение запроса</li>
                         <li>Подбор даты и времени визита</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Выбрать</a>
+                    <button type="button" class="btn btn-outline choose-plan" data-plan="Диагностика">Выбрать</button>
                 </div>
                 <div class="price-card popular fade-in">
                     <span class="popular-badge">Популярно</span>
@@ -949,7 +949,7 @@
                         <li>Проработка корня травмы</li>
                         <li>Интеграция опыта</li>
                     </ul>
-                    <a href="#contact" class="btn">Выбрать</a>
+                    <button type="button" class="btn choose-plan" data-plan="Глубинная сессия">Выбрать</button>
                 </div>
                 <div class="price-card fade-in">
                     <h3>Натуропатический разбор</h3>
@@ -961,7 +961,7 @@
                         <li>Индивидуальный план питания</li>
                         <li>Индивидуальный план физической активности</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Выбрать</a>
+                    <button type="button" class="btn btn-outline choose-plan" data-plan="Натуропатический разбор">Выбрать</button>
                 </div>
                 <div class="price-card fade-in">
                     <h3>Сопровождение</h3>
@@ -972,7 +972,7 @@
                         <li>Поддержка в мессенджерах</li>
                         <li>Комплекс психика + тело</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Выбрать</a>
+                    <button type="button" class="btn btn-outline choose-plan" data-plan="Сопровождение">Выбрать</button>
                 </div>
             </div>
         </div>
@@ -1050,6 +1050,7 @@
                     <h4>Запись на сессию</h4>
                     <p>Оставьте контакты, и я свяжусь с вами для бережной консультации.</p>
                     <form class="footer-form" id="bookingForm">
+                        <input type="hidden" name="Выбранный_тариф" id="selectedPlan" value="Не выбран">
                         <input type="text" name="Имя_или_Телефон" placeholder="Ваше имя / Телефон" required>
                         <button type="submit">Отправить</button>
                     </form>
@@ -1204,6 +1205,36 @@
 
             // Инициализация
             setSliderPosition(false);
+        }
+
+        // --- Логика выбора тарифа ---
+        const planButtons = document.querySelectorAll('.choose-plan');
+        const selectedPlanInput = document.getElementById('selectedPlan');
+        const bookingForm = document.getElementById('bookingForm');
+
+        if (planButtons.length > 0 && bookingForm) {
+            planButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Получаем название тарифа из атрибута data-plan
+                    const planName = this.getAttribute('data-plan');
+                    
+                    // Записываем его в скрытое поле формы
+                    if (selectedPlanInput) {
+                        selectedPlanInput.value = planName;
+                    }
+
+                    // Плавно прокручиваем страницу к форме в подвале
+                    bookingForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Подсвечиваем инпут, чтобы привлечь внимание клиента
+                    const textInput = bookingForm.querySelector('input[type="text"]');
+                    if (textInput) {
+                        setTimeout(() => {
+                            textInput.focus();
+                        }, 800); // Задержка, чтобы фокус сработал после прокрутки
+                    }
+                });
+            });
         }
 
         // --- Обработка формы записи ---
