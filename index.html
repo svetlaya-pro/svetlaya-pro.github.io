@@ -428,7 +428,7 @@
             padding: 12px;
         }
 
-        /* --- Testimonials --- */
+                /* --- Testimonials --- */
         .testimonials {
             background-color: var(--accent-light);
             text-align: center;
@@ -440,36 +440,31 @@
             position: relative;
             max-width: 1200px;
             margin: 0 auto;
+            overflow: hidden; /* Прячем все, что выходит за рамки */
+            padding: 20px 0 40px;
         }
 
-        .testimonials-slider {
+        .testimonials-track {
             display: flex;
             gap: 20px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 20px 10px 40px;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-        }
-
-        .testimonials-slider::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
+            align-items: flex-start; /* Выравнивание по верху, т.к. высота картинок разная */
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
 
         .testimonial-card {
-            flex: 0 0 calc(25% - 15px); /* 4 items per row */
-            height: 500px;
+            flex: 0 0 calc(25% - 15px); /* 4 элемента в ряду */
             border-radius: 12px;
             overflow: hidden;
             background: #fff;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(168, 148, 120, 0.15);
+            height: auto; /* Высота подстраивается под картинку */
         }
 
         .testimonial-card img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* Картинка показывается полностью */
             display: block;
         }
 
@@ -745,7 +740,6 @@
             }
             .testimonial-card {
                 flex: 0 0 calc(50% - 10px); /* 2 items per row */
-                height: 450px;
             }
         }
 
@@ -796,7 +790,6 @@
             }
             .testimonial-card {
                 flex: 0 0 85%; /* 1 item per row with peek effect */
-                height: 500px;
             }
             .slider-btn {
                 width: 50px;
@@ -996,21 +989,24 @@
                 <button class="slider-btn prev-btn" id="prevBtn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
-                <div class="testimonials-slider" id="testimonialsSlider">
+                <div class="testimonials-track" id="testimonialsTrack">
                     <div class="testimonial-card">
-                        <img src="./img/Screenshot_1.png" alt="Отзыв 1">
+                        <img src="https://placehold.co/400x600/EBE3DB/333333?text=Screenshot+1" alt="Отзыв 1">
                     </div>
                     <div class="testimonial-card">
-                        <img src="./img/Screenshot_2.png" alt="Отзыв 2">
+                        <img src="https://placehold.co/400x800/EBE3DB/333333?text=Screenshot+2" alt="Отзыв 2">
                     </div>
                     <div class="testimonial-card">
-                        <img src="./img/Screenshot_3.png" alt="Отзыв 3">
+                        <img src="https://placehold.co/400x500/EBE3DB/333333?text=Screenshot+3" alt="Отзыв 3">
                     </div>
                     <div class="testimonial-card">
-                        <img src="./img/Screenshot_4.png" alt="Отзыв 4">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Screenshot+4" alt="Отзыв 4">
                     </div>
                     <div class="testimonial-card">
-                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+5" alt="Отзыв 5">
+                        <img src="https://placehold.co/400x650/EBE3DB/333333?text=Screenshot+5" alt="Отзыв 5">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x750/EBE3DB/333333?text=Screenshot+6" alt="Отзыв 6">
                     </div>
                 </div>
                 <button class="slider-btn next-btn" id="nextBtn">
@@ -1136,28 +1132,84 @@
             observer.observe(el);
         });
 
-        // --- Testimonials Slider Logic ---
-        const slider = document.getElementById('testimonialsSlider');
+        // --- Testimonials Slider Logic (Infinite Loop) ---
+        const track = document.getElementById('testimonialsTrack');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
 
-        if (slider) {
-            const getScrollAmount = () => {
-                const card = slider.querySelector('.testimonial-card');
-                if (card) {
-                    const gap = parseInt(window.getComputedStyle(slider).gap) || 20;
-                    return card.offsetWidth + gap;
+        if (track) {
+            const cards = Array.from(track.children);
+            
+            // Клонируем все карточки и добавляем в конец для бесконечной прокрутки
+            cards.forEach(card => {
+                const clone = card.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            let currentIndex = 0;
+            let isTransitioning = false;
+
+            // Функция получения ширины одной карточки с учетом отступов
+            const getCardWidth = () => {
+                if (cards.length > 0) {
+                    const gap = parseInt(window.getComputedStyle(track).gap) || 20;
+                    return cards[0].getBoundingClientRect().width + gap;
                 }
-                return 300; // fallback
+                return 300;
             };
 
-            prevBtn.addEventListener('click', () => {
-                slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+            // Функция сдвига ленты
+            const setSliderPosition = (animate) => {
+                track.style.transition = animate ? 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
+                track.style.transform = `translateX(-${currentIndex * getCardWidth()}px)`;
+            };
+
+            // Кнопка "Вперед"
+            nextBtn.addEventListener('click', () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                currentIndex++;
+                setSliderPosition(true);
+
+                // Если дошли до конца оригинальных карточек, незаметно прыгаем в начало
+                setTimeout(() => {
+                    if (currentIndex >= cards.length) {
+                        currentIndex = 0;
+                        setSliderPosition(false);
+                    }
+                    isTransitioning = false;
+                }, 600); // Время должно совпадать с CSS transition (0.6s)
             });
 
-            nextBtn.addEventListener('click', () => {
-                slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            // Кнопка "Назад"
+            prevBtn.addEventListener('click', () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
+                if (currentIndex === 0) {
+                    // Если мы в самом начале, прыгаем в конец (клон) без анимации
+                    currentIndex = cards.length;
+                    setSliderPosition(false);
+                    // Даем браузеру миллисекунду на перерисовку и плавно едем назад
+                    setTimeout(() => {
+                        currentIndex--;
+                        setSliderPosition(true);
+                        isTransitioning = false;
+                    }, 20);
+                } else {
+                    currentIndex--;
+                    setSliderPosition(true);
+                    setTimeout(() => { isTransitioning = false; }, 600);
+                }
             });
+
+            // Пересчитываем позицию при изменении размера экрана
+            window.addEventListener('resize', () => {
+                setSliderPosition(false);
+            });
+
+            // Инициализация
+            setSliderPosition(false);
         }
 
         // --- Prevent form submission default (for demo) ---
