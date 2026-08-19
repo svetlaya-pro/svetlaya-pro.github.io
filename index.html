@@ -432,61 +432,78 @@
         .testimonials {
             background-color: var(--accent-light);
             text-align: center;
-        }
-
-        .testimonial-item {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-
-        .quote-mark {
-            font-family: var(--font-heading);
-            font-size: 120px;
-            line-height: 0.5;
-            color: var(--accent-color);
-            opacity: 0.3;
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        .testimonial-text {
-            font-family: var(--font-heading);
-            font-size: 26px;
-            font-style: italic;
-            line-height: 1.5;
-            margin-bottom: 40px;
-        }
-
-        .author-info {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .author-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            position: relative;
             overflow: hidden;
         }
 
-        .author-img img {
+        .testimonials-slider-wrapper {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 10px 40px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .testimonials-slider::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        .testimonial-card {
+            flex: 0 0 calc(25% - 15px); /* 4 items per row */
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(168, 148, 120, 0.15);
+        }
+
+        .testimonial-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
-        .author-name {
-            font-weight: 500;
-            text-align: left;
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(168, 148, 120, 0.2);
         }
 
-        .author-role {
-            font-size: 12px;
-            color: var(--text-light);
-            text-align: left;
+        .slider-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .prev-btn {
+            left: -20px;
+        }
+
+        .next-btn {
+            right: -20px;
         }
 
         /* --- CTA Section --- */
@@ -726,6 +743,10 @@
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            .testimonial-card {
+                flex: 0 0 calc(50% - 10px); /* 2 items per row */
+                height: 450px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -769,6 +790,23 @@
             }
             .cta-section {
                 background-attachment: scroll; /* Parallax fix for mobile */
+            }
+            .testimonials-slider-wrapper {
+                padding: 0 10px;
+            }
+            .testimonial-card {
+                flex: 0 0 85%; /* 1 item per row with peek effect */
+                height: 500px;
+            }
+            .slider-btn {
+                width: 50px;
+                height: 50px;
+            }
+            .prev-btn {
+                left: 5px;
+            }
+            .next-btn {
+                right: 5px;
             }
         }
     </style>
@@ -954,31 +992,39 @@
                 <span class="section-label">Истории исцеления</span>
                 <h2>Слова тех, кто прошел этот путь</h2>
             </div>
-            <div class="testimonial-item fade-in">
-                <span class="quote-mark">“</span>
-                <p class="testimonial-text">Я пришла к Светлане в состоянии полного выгорания и непонимания себя. Через работу с подсознанием и бережным подбором трав, я словно собрала себя заново. Впервые за долгие годы я чувствую свои границы и живу в согласии с телом.</p>
-                <div class="author-info">
-                    <div class="author-img">
-                        <img src="https://placehold.co/100x100/A89478/FFFFFF?text=Anna" alt="Анна">
+            <div class="testimonials-slider-wrapper fade-in">
+                <button class="slider-btn prev-btn" id="prevBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div class="testimonials-slider" id="testimonialsSlider">
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+1" alt="Отзыв 1">
                     </div>
-                    <div>
-                        <div class="author-name">Анна</div>
-                        <div class="author-role">Предприниматель</div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+2" alt="Отзыв 2">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+3" alt="Отзыв 3">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+4" alt="Отзыв 4">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+5" alt="Отзыв 5">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+6" alt="Отзыв 6">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+7" alt="Отзыв 7">
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/400x700/EBE3DB/333333?text=Messenger+Screenshot+8" alt="Отзыв 8">
                     </div>
                 </div>
-            </div>
-            <div class="testimonial-item fade-in" style="margin-top: 60px;">
-                <span class="quote-mark">“</span>
-                <p class="testimonial-text">Регрессивный гипноз со Светланой — это путешествие вглубь себя, которое навсегда изменило мое отношение к прошлому. Я отпустила травму, которая тянулась годами. Невероятно тонкая, профессиональная и эмпатичная работа.</p>
-                <div class="author-info">
-                    <div class="author-img">
-                        <img src="https://placehold.co/100x100/8A7762/FFFFFF?text=Michael" alt="Михаил">
-                    </div>
-                    <div>
-                        <div class="author-name">Михаил</div>
-                        <div class="author-role">Архитектор</div>
-                    </div>
-                </div>
+                <button class="slider-btn next-btn" id="nextBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
             </div>
         </div>
     </section>
@@ -1098,6 +1144,30 @@
         fadeInElements.forEach(el => {
             observer.observe(el);
         });
+
+        // --- Testimonials Slider Logic ---
+        const slider = document.getElementById('testimonialsSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        if (slider) {
+            const getScrollAmount = () => {
+                const card = slider.querySelector('.testimonial-card');
+                if (card) {
+                    const gap = parseInt(window.getComputedStyle(slider).gap) || 20;
+                    return card.offsetWidth + gap;
+                }
+                return 300; // fallback
+            };
+
+            prevBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            });
+        }
 
         // --- Prevent form submission default (for demo) ---
         document.querySelector('.footer-form').addEventListener('submit', function(e) {
