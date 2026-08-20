@@ -602,7 +602,7 @@
         .cta-content {
             position: relative;
             z-index: 2;
-            max-width: 700px;
+            max-width: 900px;
             padding: 0 20px;
         }
 
@@ -611,6 +611,7 @@
             color: #fff;
             margin-bottom: 30px;
             line-height: 1.2;
+            white-space: nowrap;
         }
 
         .cta-content .btn {
@@ -834,6 +835,10 @@
             .footer-bottom {
                 flex-direction: column;
                 gap: 15px;
+            }
+            .cta-content h2 {
+                white-space: normal;
+                font-size: clamp(28px, 7vw, 36px);
             }
             .cta-section {
                 background-attachment: scroll; 
