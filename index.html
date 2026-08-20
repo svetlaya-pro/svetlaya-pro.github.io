@@ -501,6 +501,78 @@
             right: -20px;
         }
 
+        /* --- Practices --- */
+        .practices {
+            background-color: #fff;
+        }
+
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .practice-card {
+            background: #fff;
+            border: 1px solid #E0DCD7;
+            padding: 35px 30px;
+            border-radius: 12px;
+            transition: var(--transition);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .practice-card:hover {
+            border-color: transparent;
+            box-shadow: 0 20px 40px -10px rgba(168, 148, 120, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .practice-card:hover::before {
+            height: 100%;
+        }
+
+        .practice-icon {
+            width: 40px;
+            height: 40px;
+            stroke: var(--accent-color);
+            stroke-width: 1.5;
+            fill: none;
+            margin-bottom: 20px;
+        }
+
+        .practice-tag {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .practice-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .practice-card p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
         /* --- CTA Section --- */
         .cta-section {
             position: relative;
@@ -646,28 +718,6 @@
             font-size: 13px;
         }
 
-        .socials {
-            display: flex;
-            gap: 15px;
-        }
-
-        .socials a {
-            color: var(--footer-text);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-        }
-
-        .socials a:hover {
-            color: var(--accent-color);
-        }
-
-        .socials svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
         /* --- Mobile Menu --- */
         .mobile-menu {
             position: fixed;
@@ -741,6 +791,9 @@
             .testimonial-card {
                 flex: 0 0 calc(50% - 10px); 
             }
+            .practices-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -801,6 +854,9 @@
             .next-btn {
                 right: 5px;
             }
+            .practices-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -818,6 +874,7 @@
                 <li><a href="#services">Услуги</a></li>
                 <li><a href="#pricing">Стоимость</a></li>
                 <li><a href="#testimonials">Отзывы</a></li>
+                <li><a href="#practices">Практики</a></li>
                 <li><a href="#contact" class="btn" style="padding: 8px 20px; font-size: 12px;">Записаться</a></li>
             </ul>
             <div class="burger" id="burger">
@@ -835,6 +892,7 @@
             <li><a href="#services">Услуги</a></li>
             <li><a href="#pricing">Стоимость</a></li>
             <li><a href="#testimonials">Отзывы</a></li>
+            <li><a href="#practices">Практики</a></li>
             <li><a href="#contact">Записаться</a></li>
         </ul>
     </div>
@@ -1010,6 +1068,55 @@
         </div>
     </section>
 
+    <!-- Practices Section -->
+    <section id="practices" class="practices">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Инструменты трансформации</span>
+                <h2>Авторские практики и методы</h2>
+                <p>В своей работе я использую синтез проверенных психологических техник и природной мудрости, чтобы бережно провести вас к исцелению.</p>
+            </div>
+            <div class="practices-grid">
+                <div class="practice-card fade-in">
+                    <svg class="practice-icon" viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="practice-tag">Трансперсональная психология</span>
+                    <h3>Холотропное дыхание</h3>
+                    <p>Глубокая дыхательная практика для доступа к расширенным состояниям сознания. Помогает высвободить заблокированные эмоции и активировать внутренний потенциал исцеления.</p>
+                </div>
+                <div class="practice-card fade-in">
+                    <svg class="practice-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="practice-tag">Работа с подсознанием</span>
+                    <h3>Регрессивный гипноз</h3>
+                    <p>Бережное погружение в прошлые опыты и состояния для поиска корня текущей проблемы. Позволяет переписать ограничивающие сценарии и найти внутренний ресурс.</p>
+                </div>
+                <div class="practice-card fade-in">
+                    <svg class="practice-icon" viewBox="0 0 24 24"><path d="M2 22l13-13M14 2l8 8-8 8-8-8 8-8z" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="practice-tag">Архетипы и символы</span>
+                    <h3>Метафорические карты</h3>
+                    <p>Инструмент для обхода логического контроля ума. Карты помогают подсознанию проявить истинные чувства, страхи и желания через образы и метафоры.</p>
+                </div>
+                <div class="practice-card fade-in">
+                    <svg class="practice-icon" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 3.354-2.293C17.5 19.5 20 18 22 18c-1.5-3-2-5.5-2-6 0-5.5-4.5-10-8-10z" stroke="currentColor" fill="none"/></svg>
+                    <span class="practice-tag">Выразительная терапия</span>
+                    <h3>Интуитивное рисование</h3>
+                    <p>Метод арт-терапии, где акцент делается не на результате, а на процессе. Через спонтанное рисование происходит мягкий выпуск психического напряжения и зажимов.</p>
+                </div>
+                <div class="practice-card fade-in">
+                    <svg class="practice-icon" viewBox="0 0 24 24"><path d="M12 2v6m0 8v6m10-10h-6M8 12H2m15.07-7.07l-4.24 4.24M9.17 14.83l-4.24 4.24m0-14.14l4.24 4.24m5.66 5.66l4.24 4.24" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="practice-tag">Натуропатия</span>
+                    <h3>Фитотерапия и БАДы</h3>
+                    <p>Подбор индивидуальных растительных сборов и нутрицевтиков. Природа дает мощные инструменты для восстановления дефицитов и баланса на физическом уровне.</p>
+                </div>
+                <div class="practice-card fade-in">
+                    <svg class="practice-icon" viewBox="0 0 24 24"><path d="M12 22c4.97 0 9-4.03 9-9-4.97 0-9 4.03-9 9zM5.5 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm5.5 4.5C11 9.46 7.54 6 3.5 6 3.5 10.54 6.96 14 11 14.5z" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="practice-tag">Телесная интеграция</span>
+                    <h3>Осознанная телесная динамика</h3>
+                    <p>Практика направления внимания в тело. Умение слушать сигналы тела помогает распознавать эмоции до того, как они перерастут в физическую боль или болезнь.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section" id="contact" style="background-image: url('/img/nature.jpg')">
         <div class="cta-content fade-in">
@@ -1033,6 +1140,7 @@
                         <li><a href="#services">Услуги</a></li>
                         <li><a href="#pricing">Стоимость</a></li>
                         <li><a href="#testimonials">Отзывы</a></li>
+                        <li><a href="#practices">Практики</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -1087,7 +1195,6 @@
 
         burger.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
-            // Burger animation
             const spans = burger.querySelectorAll('span');
             if (mobileMenu.classList.contains('active')) {
                 spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
@@ -1100,7 +1207,6 @@
             }
         });
 
-        // Close mobile menu when clicking a link
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
@@ -1118,12 +1224,12 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Stop observing once visible
+                    observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.1, // Trigger when 10% of the element is visible
-            rootMargin: '0px 0px -50px 0px' // Slightly delay animation until scrolled into view
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
 
         fadeInElements.forEach(el => {
@@ -1138,7 +1244,6 @@
         if (track) {
             const cards = Array.from(track.children);
             
-            // Клонируем все карточки и добавляем в конец для бесконечной прокрутки
             cards.forEach(card => {
                 const clone = card.cloneNode(true);
                 track.appendChild(clone);
@@ -1147,7 +1252,6 @@
             let currentIndex = 0;
             let isTransitioning = false;
 
-            // Функция получения ширины одной карточки с учетом отступов
             const getCardWidth = () => {
                 if (cards.length > 0) {
                     const gap = parseInt(window.getComputedStyle(track).gap) || 20;
@@ -1156,39 +1260,33 @@
                 return 300;
             };
 
-            // Функция сдвига ленты
             const setSliderPosition = (animate) => {
                 track.style.transition = animate ? 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
                 track.style.transform = `translateX(-${currentIndex * getCardWidth()}px)`;
             };
 
-            // Кнопка "Вперед"
             nextBtn.addEventListener('click', () => {
                 if (isTransitioning) return;
                 isTransitioning = true;
                 currentIndex++;
                 setSliderPosition(true);
 
-                // Если дошли до конца оригинальных карточек, незаметно прыгаем в начало
                 setTimeout(() => {
                     if (currentIndex >= cards.length) {
                         currentIndex = 0;
                         setSliderPosition(false);
                     }
                     isTransitioning = false;
-                }, 600); // Время должно совпадать с CSS transition (0.6s)
+                }, 600);
             });
 
-            // Кнопка "Назад"
             prevBtn.addEventListener('click', () => {
                 if (isTransitioning) return;
                 isTransitioning = true;
                 
                 if (currentIndex === 0) {
-                    // Если мы в самом начале, прыгаем в конец (клон) без анимации
                     currentIndex = cards.length;
                     setSliderPosition(false);
-                    // Даем браузеру миллисекунду на перерисовку и плавно едем назад
                     setTimeout(() => {
                         currentIndex--;
                         setSliderPosition(true);
@@ -1201,12 +1299,10 @@
                 }
             });
 
-            // Пересчитываем позицию при изменении размера экрана
             window.addEventListener('resize', () => {
                 setSliderPosition(false);
             });
 
-            // Инициализация
             setSliderPosition(false);
         }
 
@@ -1218,44 +1314,37 @@
         if (planButtons.length > 0 && bookingForm) {
             planButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Получаем название тарифа из атрибута data-plan
                     const planName = this.getAttribute('data-plan');
                     
-                    // Записываем его в скрытое поле формы
                     if (selectedPlanInput) {
                         selectedPlanInput.value = planName;
                     }
 
-                    // Плавно прокручиваем страницу к форме в подвале
                     bookingForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                    // Подсвечиваем инпут, чтобы привлечь внимание клиента
                     const textInput = bookingForm.querySelector('input[type="text"]');
                     if (textInput) {
                         setTimeout(() => {
                             textInput.focus();
-                        }, 800); // Задержка, чтобы фокус сработал после прокрутки
+                        }, 800);
                     }
                 });
             });
         }
 
-        // --- bookingForm ---
+        // --- Обработка формы записи ---
         if (bookingForm) {
             bookingForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const btn = bookingForm.querySelector('button[type="submit"]');
                 const originalText = btn.textContent;
                 
-                // Меняем текст кнопки, чтобы показать процесс отправки
                 btn.textContent = 'Отправка...';
                 btn.disabled = true;
 
-                // Собираем данные из формы
                 const formData = new FormData(bookingForm);
                 const data = Object.fromEntries(formData);
 
-                // Отправляем данные через сервис FormSubmit.co
                 fetch('https://formsubmit.co/ajax/svetlaya.pro.tebya@gmail.com', {
                     method: 'POST',
                     headers: {
@@ -1270,13 +1359,12 @@
                 .then(response => response.json())
                 .then(data => {
                     alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время.');
-                    bookingForm.reset(); // Очищаем форму
+                    bookingForm.reset();
                 })
                 .catch(error => {
                     alert('Упс! Что-то пошло не так. Попробуйте обновить страницу или написать на почту напрямую.');
                 })
                 .finally(() => {
-                    // Возвращаем кнопку в исходное состояние
                     btn.textContent = originalText;
                     btn.disabled = false;
                 });
